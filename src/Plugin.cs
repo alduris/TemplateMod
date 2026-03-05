@@ -12,8 +12,8 @@ namespace TestMod;
 [BepInPlugin("com.author.testmod", "Test Mod", "0.1.0")]
 sealed class Plugin : BaseUnityPlugin
 {
-    public static new ManualLogSource Logger;
-    bool IsInit;
+    public new static ManualLogSource Logger;
+    private static bool IsInit;
 
     public void OnEnable()
     {

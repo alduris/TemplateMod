@@ -1,0 +1,53 @@
+name: Rename the project from template
+
+on: [push]
+
+permissions: write-all
+
+jobs:
+  rename-project:
+    if: ${{ !contains (github.repository, '/TemplateMod') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # by default, it uses a depth of 1
+          # this fetches all history so that we can read each commit
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}' | tr '-' ' ')" >> $GITHUB_ENV
+        shell: bash
+
+      - run: echo "REPOSITORY_URLNAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+        shell: bash
+
+      - run: echo "REPOSITORY_OWNER=$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get repository description and fork status
+        uses: actions/github-script@v6
+        id: get_info
+        with:
+          script: |
+            const response = await github.rest.repos.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            return {"description": response.data.description, "isFork": response.data.fork};
+          result-encoding: json
+
+      - run: echo "REPOSITORY_DESCRIPTION=$(echo "${{fromJson(steps.get_info.outputs.result).description}}")" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Rename the project
+        if: fromJson(steps.get_info.outputs.result).isFork != true
+        run: |
+          echo "Renaming the project with -a(author) ${{ env.REPOSITORY_OWNER }} -n(name) ${{ env.REPOSITORY_NAME }} -u(urlname) ${{ env.REPOSITORY_URLNAME }}"
+          .github/rename_project.sh -a ${{ env.REPOSITORY_OWNER }} -n "${{ env.REPOSITORY_NAME }}" -u ${{ env.REPOSITORY_URLNAME }} -d "${{ env.REPOSITORY_DESCRIPTION }}"
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Applied template changes."
+          # commit_options: '--amend --no-edit'
+          push_options: --force

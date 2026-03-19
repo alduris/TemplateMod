@@ -9,7 +9,7 @@ using System.Security.Permissions;
 
 namespace TestMod;
 
-[BepInPlugin("com.author.testmod", "Test Mod", "0.1.0")]
+[BepInPlugin("author.testmod", "Test Mod", "0.1.0")]
 sealed class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger;

@@ -1,3 +1,5 @@
+You can use this folder to add references to other assemblies, such as Fisobs or Slugbase. They will be imported as references automatically.
+
 Note for adding assemblies to here: use nstrip to strip the assemblies you put in here. This helps avoid potential copyright issues.
 
 How to use nstrip:

@@ -20,7 +20,7 @@
 		<Reference Include="../lib/*.dll">
 			<Private>false</Private>
 		</Reference>
-		<Reference Include="$(RainWorldDir)/BepInEx/core/*">
+		<Reference Include="$(RainWorldDir)/BepInEx/core/*.dll">
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="$(RainWorldDir)/BepInEx/plugins/*.dll">
@@ -29,7 +29,7 @@
 		<Reference Include="$(RainWorldDir)/BepInEx/utils/*.dll">
 			<Private>false</Private>
 		</Reference>
-		<Reference Include="$(RainWorldDir)/RainWorld_Data/Managed/Unity*">
+		<Reference Include="$(RainWorldDir)/RainWorld_Data/Managed/Unity*.dll">
 			<Private>false</Private>
 		</Reference>
 	</ItemGroup>

@@ -7,7 +7,7 @@ Rename `src/TestMod.csproj`, then edit `mod/modinfo.json` and `src/Plugin.cs` to
 
 See [the modding wiki](https://rainworldmodding.miraheze.org/wiki/Mod_Directories) for `modinfo.json` documentation.
 
-To update your mod to work in future updates, replace `PUBLIC-Assembly-CSharp.dll` and `HOOKS-Assembly-CSharp.dll` with the equivalents found in `Rain World/BepInEx/utils` and `Rain World/BepInEx/plugins` as well as `Assembly-CSharp-firstpass.dll` found in `Rain World/RainWorld_Data/Managed`.
+You will need to set up an environmental variable, `RainWorldDir`, containing the full path to your Rain World installation without a slash as the last character (as an example, for me, it is `D:/SteamLibrary/steamapps/common/Rain World`). If you are unsure how to do this, on Windows, go to the search icon in your taskbar and type "environmental variables", and an option akin to "Edit the system environmental variables" should pop up. Open that, click the "Environmental Variables" button at the bottom, then add a New entry under the User variables with the aforementioned Variable and Value.
 
 If you wish to add any other reference .dll files, copy them into the `lib` folder and strip them (using a tool such as [NStrip](https://github.com/bbepis/NStrip)).
 
@@ -20,5 +20,3 @@ In a nutshell, this means:
 - There are no warranties expressed or implied
 
 You do not have to license your code under CC0 though! (Though it would be cool if you did.) Feel free to license your code however you wish, or not at all.
-
-**DISCLAIMER**: Any and all reference .dll files included (in the `lib` folder) are NOT covered under CC0! They are protected by copyright under their original owners. The actual code in the .dll files has been stripped so they serve no purpose other than for compiler reference (hopefully alleviating most legal issues this would otherwise cause), but this is expected to be upheld by you, the person using this template! Any reference .dlls you may add should be stripped before pushing to any public repository! And if it is possible to get code from Nuget instead, I recommend you do that instead of adding the dll here.
